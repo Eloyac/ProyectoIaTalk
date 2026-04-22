@@ -1,6 +1,6 @@
 import sqlite3
-from pathlib import Path
 import pytest
+import gc
 import src.storage.db as db_module
 from src.storage.models import CallRecord
 
@@ -11,6 +11,8 @@ def clean_db(tmp_path, monkeypatch):
     monkeypatch.setattr(db_module, "DB_PATH", db_path)
     db_module.init_db()
     yield
+    # Ensure all connections are closed before cleanup
+    gc.collect()
     db_path.unlink(missing_ok=True)
 
 
