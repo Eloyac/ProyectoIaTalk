@@ -8,3 +8,7 @@ venv/
 *.pyo
 .vscode/
 .idea/
+.claude/
+.superpowers/
+asda.txt
+logs/
