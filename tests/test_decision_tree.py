@@ -1,18 +1,19 @@
 import pytest
+from config.settings import settings as _settings
 
 
 @pytest.fixture(autouse=True)
 def mock_settings(monkeypatch):
-    monkeypatch.setenv("MONICA_PHONE", "+34600000001")
-    monkeypatch.setenv("CONCHA_PHONE", "+34600000002")
-    monkeypatch.setenv("LUIS_PHONE", "+34600000003")
-    monkeypatch.setenv("MONICA_WHATSAPP", "+34600000001")
-    monkeypatch.setenv("LUIS_WHATSAPP", "+34600000003")
-    monkeypatch.setenv("MONICA_EMAIL", "monica@despacho.com")
-    monkeypatch.setenv("CONCHA_EMAIL", "concha@despacho.com")
-    monkeypatch.setenv("OPERATOR_PRIORITY", "monica,luis,concha")
-    monkeypatch.setenv("CLUB_MEMBERSHIP_START", "2025-09-01")
-    monkeypatch.setenv("CLUB_MEMBERSHIP_END", "2025-09-30")
+    monkeypatch.setattr(_settings, "monica_phone", "+34600000001")
+    monkeypatch.setattr(_settings, "concha_phone", "+34600000002")
+    monkeypatch.setattr(_settings, "luis_phone", "+34600000003")
+    monkeypatch.setattr(_settings, "monica_whatsapp", "+34600000001")
+    monkeypatch.setattr(_settings, "luis_whatsapp", "+34600000003")
+    monkeypatch.setattr(_settings, "monica_email", "monica@despacho.com")
+    monkeypatch.setattr(_settings, "concha_email", "concha@despacho.com")
+    monkeypatch.setattr(_settings, "operator_priority", "monica,luis,concha")
+    monkeypatch.setattr(_settings, "club_membership_start", "2025-09-01")
+    monkeypatch.setattr(_settings, "club_membership_end", "2025-09-30")
 
 
 def _call(block, urgency="normal", is_office=True, anger="low"):
