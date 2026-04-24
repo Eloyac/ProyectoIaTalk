@@ -11,7 +11,11 @@ router = APIRouter()
 
 @router.post("/incoming-call")
 async def incoming_call(request: Request):
-    base = str(request.base_url).rstrip("/")
+    # Railway terminates SSL at the load balancer, so request.base_url is http://.
+    # Use X-Forwarded-Proto to reconstruct the real public URL.
+    proto = request.headers.get("x-forwarded-proto", request.url.scheme)
+    host = request.headers.get("host", request.url.netloc)
+    base = f"{proto}://{host}"
     ws_base = base.replace("https://", "wss://").replace("http://", "ws://")
     twiml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
