@@ -54,6 +54,9 @@ class Settings(BaseSettings):
         "inmediatamente,ridículo,incompetentes,mala gestión,legal"
     )
 
+    # Railway injects this automatically; empty string means local/dev
+    railway_public_domain: str = ""
+
     model_config = {"env_file": ".env", "case_sensitive": False}
 
 
